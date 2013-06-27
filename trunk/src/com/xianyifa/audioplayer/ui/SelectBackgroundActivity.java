@@ -102,16 +102,16 @@ public class SelectBackgroundActivity extends MyActivity {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return 0;
+			return data.size();
 		}
 
 		/* (non-Javadoc)
 		 * @see android.widget.Adapter#getItem(int)
 		 */
 		@Override
-		public Object getItem(int arg0) {
+		public Object getItem(int index) {
 			// TODO Auto-generated method stub
-			return null;
+			return data.get(index);
 		}
 
 		/* (non-Javadoc)
@@ -120,7 +120,7 @@ public class SelectBackgroundActivity extends MyActivity {
 		@Override
 		public long getItemId(int position) {
 			// TODO Auto-generated method stub
-			return 0;
+			return position;
 		}
 
 		/* (non-Javadoc)
