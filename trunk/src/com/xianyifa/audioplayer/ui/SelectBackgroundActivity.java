@@ -13,8 +13,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -28,6 +31,7 @@ import com.xianyifa.audioplayer.util.MyApplication;
 public class SelectBackgroundActivity extends MyActivity {
 	private final String TAG = "SelectBackgroundActivity";
 	private ArrayList<HashMap<String, Object>> data;
+	private HashMap<String, String> config;//程序配置参数
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,30 @@ public class SelectBackgroundActivity extends MyActivity {
 		GridView bgGridView = (GridView)findViewById(R.id.bg_img_gridView);
 		bgGridView.setAdapter(new MyAdapter(SelectBackgroundActivity.this, data));
 		
+
+		
+		//点击事件
+		bgGridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int position,
+					long id) {
+				// TODO Auto-generated method stub
+				
+				GridView gv = (GridView)parent;
+				HashMap<String, Object> item = (HashMap<String, Object>)gv.getItemAtPosition(position);
+				String path = item.get("path").toString();
+				Log.i(TAG, path);
+				//写入配置文件
+				HashMap<String, String> cofig = new HashMap<String, String>();
+				cofig.put("bgImg", path);
+				setConfig(cofig);
+				SelectBackgroundActivity.this.finish();
+			}
+
+			
+			
+		});
 	}
 	
 	/**
@@ -87,12 +115,13 @@ public class SelectBackgroundActivity extends MyActivity {
 	private class MyAdapter extends BaseAdapter{
 		private Context context;
 		private ArrayList<HashMap<String, Object>> data;
+		private String bgPath;
 		
 		public MyAdapter(Context context,ArrayList<HashMap<String, Object>> data){
-			
-//			super(context, data, resource, from, to);
+			config = getConfig();
 			this.context = context;
 			this.data = data;
+			this.bgPath = config.get("bg");
 			Log.i(TAG, "MyAdapter"+data.size());
 		}
 		
@@ -130,23 +159,48 @@ public class SelectBackgroundActivity extends MyActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
 			Log.i(TAG, "getView");
-			ImageView imageView;
-			if (convertView == null) { 
-                imageView = new ImageView(context); 
-                imageView.setLayoutParams(new GridView.LayoutParams(75, 75));//设置ImageView对象布局 
-                imageView.setAdjustViewBounds(false);//设置边界对齐 
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);//设置刻度的类型 
-                imageView.setPadding(8, 8, 8, 8);//设置间距 
-            }  
-            else { 
-                imageView = (ImageView) convertView; 
-            } 
-//            imageView.setImageResource((BitmapDrawable)data.get(position).get("bitmap"));//为ImageView设置图片资源 
-            imageView.setImageDrawable((BitmapDrawable)data.get(position).get("bitmap"));
-            return imageView; 
+//			ImageView imageView;
+//			if (convertView == null) { 
+//                imageView = new ImageView(context); 
+//                imageView.setLayoutParams(new GridView.LayoutParams(150, 250));//设置ImageView对象布局 
+//                imageView.setAdjustViewBounds(false);//设置边界对齐 
+//                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);//设置刻度的类型 
+//                imageView.setPadding(8, 8, 8, 8);//设置间距 
+//            }  
+//            else { 
+//                imageView = (ImageView) convertView; 
+//            } 
+//            imageView.setImageDrawable((BitmapDrawable)data.get(position).get("bitmap"));
+//            return imageView; 
 			
+            
+            convertView = LayoutInflater.from(SelectBackgroundActivity.this.getApplicationContext()).inflate(R.layout.select_bg_item, null);
+            ImageView imageView = (ImageView)convertView.findViewById(R.id.bgItemImg);
+//            imageView.setLayoutParams(new GridView.LayoutParams(150, 250));//设置ImageView对象布局 
+//	          imageView.setAdjustViewBounds(false);//设置边界对齐 
+//	          imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);//设置刻度的类型 
+//	          imageView.setPadding(8, 8, 8, 8);//设置间距 
+            
+            
+            imageView.setImageDrawable((BitmapDrawable)data.get(position).get("bitmap"));
+            
+            if(data.get(position).get("path").equals(bgPath)){
+            	ImageView imageViewCheck = (ImageView)convertView.findViewById(R.id.bgItemCheck);
+            	imageViewCheck.setVisibility(View.VISIBLE);//可见
+//            	imageViewCheck.setImageResource(R.drawable.icon_add_checked);
+            }
+            
+            return convertView;
+            
 		}
 		
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		MyApplication.getInstance().removeActivity(this);
+		super.onDestroy();
 	}
 	
 	

@@ -1,21 +1,18 @@
 package com.xianyifa.audioplayer.ui;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.Menu;
@@ -237,11 +234,26 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 	 * 读取配置
 	 */
 	public HashMap<String, String> getConfig(){
+		SharedPreferences shareprefernces =  getSharedPreferences("config", Context.MODE_APPEND);//取得要写入的文件对象
+		String bgImg = shareprefernces.getString("bgImg", "");
 		HashMap<String, String> config = new HashMap<String, String>();
-		config.put("bg", "bkgs/002.jpg");
+		config.put("bg", bgImg);
 		return config;
 	}
 	
+	/**
+	 * 保存配置文件
+	 */
+	public void setConfig(HashMap<String, String> config){
+		SharedPreferences shareprefernces =  getSharedPreferences("config", Context.MODE_APPEND);//取得要写入的文件对象
+		Editor editor = shareprefernces.edit();//取得一个编辑器
+		Set<Map.Entry<String, String>> keySet = config.entrySet();
+		for (Map.Entry<String, String> m : keySet) {
+			editor.putString(m.getKey(), m.getValue());
+		}
+		
+		editor.commit();//一定不要忘记吧内存中的数据提交保存
+	}
 	
 	@Override
 	public void setPlayerService(MyPlayer service) {
