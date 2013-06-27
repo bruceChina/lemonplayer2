@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/setting"
+    >
+   <Preference android:title="基本信息"  
+        android:layout="@layout/set_up_title_view"></Preference> <!--自定义layout-->
+   <PreferenceCategory
+       android:title="开启时"
+       >
+       <CheckBoxPreference
+           android:key="checkbox_preference"
+           android:title="开启自动播放"
+           android:summaryOff="关闭"
+           android:summaryOn="开启"
+           android:widgetLayout="@layout/app_checkbox"
+           >
+           
+       </CheckBoxPreference>
+       
+   </PreferenceCategory>
+   
+   <PreferenceCategory
+       android:title="主题"
+       >
+       <PreferenceScreen  
+            android:summary="换背景"  
+            android:title="换背景" >  
+  
+            <intent  
+                android:action="android.intent.action.MAIN"  
+                android:targetPackage="com.xianyifa.audioplayer.ui"
+                android:targetClass="com.xianyifa.audioplayer.ui.SelectBackgroundActivity" />  
+        </PreferenceScreen>  
+   </PreferenceCategory>
+</PreferenceScreen>
