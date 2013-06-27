@@ -489,7 +489,7 @@ public class AudioList extends MyActivity {
 		// TODO Auto-generated method stub
 		data = new ArrayList<HashMap<String, Object>>();
 		AudioDao ad = new AudioDao(AudioList.this);
-		data = ad.getAudioFile(1, 20);
+		data = ad.getAudioFile(1, PAGE_SIZE);
 		// È¡µÃlistview
 		listView = (ListView) findViewById(R.id.audiolist);
 		adapter = new MyAdapter(AudioList.this, data,
