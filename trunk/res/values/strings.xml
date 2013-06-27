@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="audio_file">音乐文件</string>
+    <string name="app_name">音乐播放器</string>
+    <string name="player">播放</string>
+    <string name="pause">暂停</string>
+    <string name="reset">重播</string>
+    <string name="stop">停止</string>
+    <string name="proceed">继续</string>
+    <string name="delete">删除</string>
+    <string name="verify">确定</string>
+    <string name="cancel">取消</string>
+    <string name="prompt">提示</string>
+    <string name="verify_del">确定删除</string>
+    <string name="choice_action">请选中操作</string>
+    <string name="sdcard_notuse">SD卡不可用</string>
+    <string name="song_list">歌曲列表</string>
+    <string name="song_lyric">歌词</string>
+    <string name="now_playing">正在播放...</string>
+    <string name="no_music_playing">无音乐播放</string>
+    <string name="back_root_dir">返回根目录..</string>
+    <string name="back_dir">返回上一层..</string>
+    <string name="select_folder">请选择文件夹</string>
+    <string name="setting">设置</string>
+</resources>
