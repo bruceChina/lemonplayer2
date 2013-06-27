@@ -17,7 +17,7 @@
          android:id="@+id/bg_img_gridView"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
-         android:columnWidth="100dip"
+         android:columnWidth="140dip"
          android:numColumns="3"
          android:verticalSpacing="10dip"
          android:horizontalSpacing="10dip"
