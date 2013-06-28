@@ -73,7 +73,7 @@ public class SelectBackgroundActivity extends MyActivity {
 				cofig.put("bgImg", path);
 				setConfig(cofig);
 				MyApplication.getInstance().setReloadBackground(true);
-//				SelectBackgroundActivity.this.finish();
+				SelectBackgroundActivity.this.finish();
 			}
 
 			

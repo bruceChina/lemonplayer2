@@ -57,7 +57,7 @@ public class AudioLyric extends MyActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.audiolyric);
-		config = getConfig();
+		
 		MyApplication.getInstance().addActivity(this); //把当前activity放到activity管理器
 		
 		//手势切换activity start
@@ -67,20 +67,8 @@ public class AudioLyric extends MyActivity {
 		audioLyricLayout.setLongClickable(true);
 		//手势切换activity end
 		
-		//设置背景图片 start
-		String bgPath = config.get("bg");
-		try {
-			Log.i(TAG, bgPath);
-			InputStream assetFile = getAssets().open(bgPath);//以字节流读取
-			BitmapDrawable bitmap = (BitmapDrawable)Drawable.createFromStream(assetFile, bgPath);
-//			LinearLayout audioListView = (LinearLayout)findViewById(R.id.audioListView);//取得界面
-			audioLyricLayout.setBackgroundDrawable(bitmap);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			Log.d(TAG, e.toString());
-			e.printStackTrace();
-		}
-		//设置背景图片 end
+		//背景
+		updateBackground();
 		
 		//获取屏幕的宽度像素
 		DisplayMetrics dm = new DisplayMetrics();
@@ -239,6 +227,10 @@ public class AudioLyric extends MyActivity {
 		regReceiver();//注册广播监听
 		Log.i(TAG, "Lyric onResume");
 		
+		if(MyApplication.getInstance().isReloadBackground()){
+			updateBackground();
+		}
+		
 		super.onResume();
 	}
 
@@ -303,6 +295,28 @@ public class AudioLyric extends MyActivity {
 		// TODO Auto-generated method stub
 		return myPlayerService;
 	}
-
+	
+	/**
+	 * 更新背景
+	 */
+	@Override
+	public void updateBackground(){
+		//设置背景图片 start
+		config = getConfig();
+		String bgPath = config.get("bg");
+		try {
+			Log.i(TAG, bgPath);
+			InputStream assetFile = getAssets().open(bgPath);//以字节流读取
+			BitmapDrawable bitmap = (BitmapDrawable)Drawable.createFromStream(assetFile, bgPath);
+			LinearLayout audioLyricLayout = (LinearLayout)findViewById(R.id.audio_lyric_layout);//取得界面
+			audioLyricLayout.setBackgroundDrawable(bitmap);
+			MyApplication.getInstance().setReloadBackground(false);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			Log.d(TAG, e.toString());
+//			e.printStackTrace();
+		}
+		//设置背景图片 end
+	}
 	
 }

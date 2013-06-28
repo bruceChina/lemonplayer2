@@ -57,7 +57,7 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 		super.onCreateOptionsMenu(menu);
 		// 退出程序
 		menu.add(0, ADDAUDIOPLAYER_ID, 0, "添加歌曲").setShortcut('2', 'b').setIcon(R.drawable.ic_menu_scan);
-		menu.add(0, DELAUDIOPLAYER_ID, 0, "删除歌曲").setShortcut('2', 'b');
+		menu.add(0, DELAUDIOPLAYER_ID, 0, "删除歌曲").setShortcut('2', 'b').setIcon(R.drawable.operation_button_delete);
 		menu.add(0, SET_UP_ID, 0, "设置").setShortcut('2', 'b').setIcon(R.drawable.ic_menu_setting);
 		// .setIcon(R.drawable.exit);
 		// 退出程序
@@ -236,6 +236,9 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 	public HashMap<String, String> getConfig(){
 		SharedPreferences shareprefernces =  getSharedPreferences("config", Context.MODE_APPEND);//取得要写入的文件对象
 		String bgImg = shareprefernces.getString("bgImg", "");
+		if(bgImg.equals("")){
+			bgImg = "bkgs/001.jpg";
+		}
 		HashMap<String, String> config = new HashMap<String, String>();
 		config.put("bg", bgImg);
 		return config;
@@ -267,6 +270,13 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 	
 	@Override
 	public void updateBackground(){
+		
+	}
+	
+	/**
+	 * 底部按钮事件
+	 */
+	public void bottomMeun(){
 		
 	}
 	
