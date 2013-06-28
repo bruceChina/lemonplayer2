@@ -94,8 +94,7 @@ public class AudioList extends MyActivity {
 		setContentView(R.layout.audiolist);
 		MyApplication.getInstance().addActivity(this); //把当前activity放到activity管理器
 		showListView();
-		//取得系统参数
-		config = getConfig();
+		
 		//手势切换activity start
 		gestureDetector = new GestureDetector(AudioList.this);
 		ListView audiolist = (ListView)findViewById(R.id.audiolist);
@@ -497,6 +496,12 @@ public class AudioList extends MyActivity {
 				int resource, String[] from, int[] to) {
 			super(context, data, resource, from, to);
 			// TODO Auto-generated constructor stub
+			//如果没有数据
+			if(data.isEmpty()){
+				//设置显示没有文件图片
+				ImageView empty = (ImageView)findViewById(R.id.empty_img);
+				empty.setVisibility(View.VISIBLE);
+			}
 		}
 		/*
 		 * 每次加载listView都会调用
@@ -645,10 +650,11 @@ public class AudioList extends MyActivity {
 		
 		//判断是否重新读取背景
 		if(MyApplication.getInstance().isReloadBackground()){
+			Log.i(TAG, "onResume updateBackground");
 			updateBackground();
 		}
 		
-		Log.i(TAG, "onResume");
+		Log.i(TAG, "onResume："+MyApplication.getInstance().isReloadBackground());
 		super.onResume();
 	}
 
@@ -832,10 +838,12 @@ public class AudioList extends MyActivity {
 	 */
 	@Override
 	public void updateBackground(){
+		//取得系统参数
+		config = getConfig();
 		//设置背景图片 start
 		String bgPath = config.get("bg");
 		try {
-			Log.i(TAG, bgPath);
+			Log.i(TAG, "updateBackground:"+bgPath);
 			InputStream assetFile = getAssets().open(bgPath);//以字节流读取
 			BitmapDrawable bitmap = (BitmapDrawable)Drawable.createFromStream(assetFile, bgPath);
 			LinearLayout audioListView = (LinearLayout)findViewById(R.id.audioListView);//取得界面
@@ -844,7 +852,7 @@ public class AudioList extends MyActivity {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			Log.d(TAG, e.toString());
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		//设置背景图片 end
 	}

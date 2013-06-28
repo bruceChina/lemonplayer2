@@ -3,7 +3,6 @@
     android:id="@+id/audioListView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/list_bg"
     android:orientation="vertical" >
 	
     <include layout="@layout/top_but_menu" ></include>
@@ -28,6 +27,15 @@
             android:cacheColorHint="#00000000" 
             >
         </ListView>
+        <ImageView 
+            android:id="@+id/empty_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_jiong"
+            android:visibility="gone"
+            />
     </RelativeLayout> 
   <include layout="@layout/bottom_but_menu" ></include>
   </LinearLayout>

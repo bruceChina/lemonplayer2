@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xianyifa.audioplayer.ui"
     android:versionCode="1"
-    android:versionName="1.1" >
+    android:versionName="1.2" >
 
     <uses-sdk android:minSdkVersion="11" />
 
@@ -37,6 +37,7 @@
             android:name="com.xianyifa.audioplayer.ui.SelectFileActivity" >
         </activity>
         <activity
+            android:theme="@style/perference_set_activity"
             android:name="com.xianyifa.audioplayer.ui.SetUpActivity" >
         </activity>
         <activity

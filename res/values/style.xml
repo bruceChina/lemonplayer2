@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>  
-<resources>  
+<resources xmlns:android="http://schemas.android.com/apk/res/android">  
       
-     <style name="CustomWindowTitleText" >    
-          <item name="android:textSize">20dip</item>    
-          <item name="android:textColor">#FFffffff</item>    
-          <item name="android:paddingLeft">10dp</item>  
-     </style>   
-      
-    <style name="Default.NoTitleBar" parent="@android:style/Theme.Light.NoTitleBar">  
-        <item name="android:textColorPrimaryInverse">@android:color/black</item>  
-        <item name="android:windowContentOverlay">@null</item>  
-        <item name="android:windowTitleSize">42.0dip</item>  
-        <item name="android:windowTitleStyle">@style/CustomWindowTitleText</item>   
-    </style>  
-      
-      
-    <style name="Default" >  
-        <item name="android:windowNoTitle">false</item>  
-    </style>  
-      
+    <style name="perference_set_activity"> 
+		<item name="android:windowBackground">@drawable/white</item>  <!-- 窗口背景 --> 
+		<item name="android:focusable">false</item> 
+		<item name="android:textColor">#ff000000</item> <!-- 字体颜色 --> 
+		<item name="android:colorBackgroundCacheHint">#00000000</item> <!-- 背景缓存色透明，避免拖动全黑 --> 
+		<item name="android:windowNoTitle">true</item> <!-- 是否有标题 --> 
+    </style> 
       
 </resources>  
