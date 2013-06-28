@@ -102,20 +102,9 @@ public class AudioList extends MyActivity {
 		audiolist.setOnTouchListener(this);
 		audiolist.setLongClickable(true);
 		//手势切换activity end
-		//设置背景图片 start
-		String bgPath = config.get("bg");
-		try {
-			Log.i(TAG, bgPath);
-			InputStream assetFile = getAssets().open(bgPath);//以字节流读取
-			BitmapDrawable bitmap = (BitmapDrawable)Drawable.createFromStream(assetFile, bgPath);
-			LinearLayout audioListView = (LinearLayout)findViewById(R.id.audioListView);//取得界面
-			audioListView.setBackgroundDrawable(bitmap);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			Log.d(TAG, e.toString());
-			e.printStackTrace();
-		}
-		//设置背景图片 end
+		
+		//设置背景
+		updateBackground();
 		
 		//获取屏幕的宽度像素
 		DisplayMetrics dm = new DisplayMetrics();
@@ -654,6 +643,11 @@ public class AudioList extends MyActivity {
 		//注册广播监听
 		regReceiver();
 		
+		//判断是否重新读取背景
+		if(MyApplication.getInstance().isReloadBackground()){
+			updateBackground();
+		}
+		
 		Log.i(TAG, "onResume");
 		super.onResume();
 	}
@@ -707,7 +701,6 @@ public class AudioList extends MyActivity {
 			// Binder binder = (Binder)service;
 			Log.i(TAG, "onServiceConnected");
 			myPlayerService = (MyPlayer) service;
-//			setPlayerService((MyPlayer)service);
 			myPlayerService.setListViewData(data);
 			listId = myPlayerService.getListId();
 			onListId = listId;//当前播放歌曲的listView数据索引
@@ -834,5 +827,26 @@ public class AudioList extends MyActivity {
 		return myPlayerService;
 	}	
 	
+	/**
+	 * 更新背景
+	 */
+	@Override
+	public void updateBackground(){
+		//设置背景图片 start
+		String bgPath = config.get("bg");
+		try {
+			Log.i(TAG, bgPath);
+			InputStream assetFile = getAssets().open(bgPath);//以字节流读取
+			BitmapDrawable bitmap = (BitmapDrawable)Drawable.createFromStream(assetFile, bgPath);
+			LinearLayout audioListView = (LinearLayout)findViewById(R.id.audioListView);//取得界面
+			audioListView.setBackgroundDrawable(bitmap);
+			MyApplication.getInstance().setReloadBackground(false);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			Log.d(TAG, e.toString());
+			e.printStackTrace();
+		}
+		//设置背景图片 end
+	}
 
 }
