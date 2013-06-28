@@ -497,10 +497,10 @@ public class AudioList extends MyActivity {
 			super(context, data, resource, from, to);
 			// TODO Auto-generated constructor stub
 			//如果没有数据
-			if(data.isEmpty()){
+			if(!data.isEmpty()){
 				//设置显示没有文件图片
 				ImageView empty = (ImageView)findViewById(R.id.empty_img);
-				empty.setVisibility(View.VISIBLE);
+				empty.setVisibility(View.GONE);
 			}
 		}
 		/*
