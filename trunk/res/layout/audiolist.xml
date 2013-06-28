@@ -34,7 +34,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/img_jiong"
-            android:visibility="gone"
+            android:visibility="visible"
             />
     </RelativeLayout> 
   <include layout="@layout/bottom_but_menu" ></include>
