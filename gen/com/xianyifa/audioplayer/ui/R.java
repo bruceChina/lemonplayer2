@@ -26,8 +26,8 @@ public final class R {
         public static final int bluetooth_search_cancel_default=0x7f02000a;
         public static final int bluetooth_search_cancel_pressed=0x7f02000b;
         public static final int btn_disable=0x7f02000c;
-        public static final int btn_inlinemode=0x7f02000d;
-        public static final int btn_offlinemode=0x7f02000e;
+        public static final int btn_setting_off=0x7f02000d;
+        public static final int btn_setting_on=0x7f02000e;
         public static final int btn_titile_back_first_default_theme_1=0x7f02000f;
         public static final int but_icon_close=0x7f020010;
         public static final int but_icon_next_song=0x7f020011;
@@ -38,29 +38,29 @@ public final class R {
         public static final int content_menu_ico=0x7f020016;
         public static final int dialog_standard_top_background=0x7f020017;
         public static final int doc=0x7f020018;
-        public static final int file_listview_selected=0x7f020019;
-        public static final int ic_menu_exit=0x7f02001a;
-        public static final int ic_menu_scan=0x7f02001b;
-        public static final int ic_menu_setting=0x7f02001c;
-        public static final int icon=0x7f02001d;
-        public static final int icon_add_checked=0x7f02001e;
-        public static final int icon_checked=0x7f02001f;
-        public static final int icon_folder=0x7f020020;
-        public static final int icon_menu_addto=0x7f020021;
-        public static final int icon_menu_audioinfo=0x7f020022;
-        public static final int icon_menu_findlrc=0x7f020023;
-        public static final int icon_menu_scan=0x7f020024;
+        public static final int file_icon_mid=0x7f020019;
+        public static final int file_icon_mp3=0x7f02001a;
+        public static final int file_icon_wav=0x7f02001b;
+        public static final int file_icon_wma=0x7f02001c;
+        public static final int file_listview_selected=0x7f02001d;
+        public static final int ic_menu_exit=0x7f02001e;
+        public static final int ic_menu_scan=0x7f02001f;
+        public static final int ic_menu_setting=0x7f020020;
+        public static final int icon=0x7f020021;
+        public static final int icon_add_checked=0x7f020022;
+        public static final int icon_checked=0x7f020023;
+        public static final int icon_folder=0x7f020024;
         public static final int icon_pre_song_big=0x7f020025;
         public static final int icon_pre_song_big_pressed=0x7f020026;
         public static final int img_jiong=0x7f020027;
         public static final int img_list_play_control_shadow=0x7f020028;
         public static final int img_wifi_transfering_icon=0x7f020029;
-        public static final int list_bg=0x7f02002a;
-        public static final int list_item_menu_pressed=0x7f02002b;
-        public static final int list_pause_state=0x7f02002c;
-        public static final int list_play_state=0x7f02002d;
-        public static final int lyric_pics_srch_title_shadow=0x7f02002e;
-        public static final int menu_item_pressed=0x7f02002f;
+        public static final int list_item_menu_pressed=0x7f02002a;
+        public static final int list_pause_state=0x7f02002b;
+        public static final int list_play_state=0x7f02002c;
+        public static final int lyric_pics_srch_title_shadow=0x7f02002d;
+        public static final int menu_item_pressed=0x7f02002e;
+        public static final int operation_button_delete=0x7f02002f;
         public static final int other=0x7f020038;
         public static final int scan_empty_icon=0x7f020030;
         public static final int scan_folder_return=0x7f020031;
@@ -73,36 +73,36 @@ public final class R {
     public static final class id {
         public static final int audioListView=0x7f070000;
         public static final int audio_lyric=0x7f07001e;
-        public static final int audio_lyric_layout=0x7f07000a;
+        public static final int audio_lyric_layout=0x7f07000b;
         public static final int audiolist=0x7f070002;
         public static final int audiolisttext=0x7f07001d;
-        public static final int audioname=0x7f070006;
-        public static final int audiopath=0x7f070009;
-        public static final int audioplaytime=0x7f070007;
-        public static final int audiotime=0x7f070008;
+        public static final int audioname=0x7f070007;
+        public static final int audiopath=0x7f07000a;
+        public static final int audioplaytime=0x7f070008;
+        public static final int audiotime=0x7f070009;
         public static final int bgItemCheck=0x7f07001a;
-        public static final int bgItemFlayout=0x7f070018;
         public static final int bgItemImg=0x7f070019;
         public static final int bg_img_gridView=0x7f07001b;
-        public static final int bot_but=0x7f07000d;
-        public static final int bottom_menu=0x7f07000c;
-        public static final int bottom_next_song=0x7f070010;
-        public static final int bottom_pause_song=0x7f07000f;
-        public static final int bottom_pre_song=0x7f07000e;
-        public static final int buttonCancel=0x7f070014;
-        public static final int buttonConfirm=0x7f070015;
-        public static final int icon=0x7f070012;
-        public static final int id=0x7f070004;
+        public static final int bot_but=0x7f07000e;
+        public static final int bottom_menu=0x7f07000d;
+        public static final int bottom_next_song=0x7f070011;
+        public static final int bottom_pause_song=0x7f070010;
+        public static final int bottom_pre_song=0x7f07000f;
+        public static final int buttonCancel=0x7f070015;
+        public static final int buttonConfirm=0x7f070016;
+        public static final int empty_img=0x7f070003;
+        public static final int icon=0x7f070013;
+        public static final int id=0x7f070005;
         public static final int listView_layout=0x7f070001;
-        public static final int list_play_icon=0x7f070005;
-        public static final int listviewitem=0x7f070003;
-        public static final int pager=0x7f070017;
-        public static final int progress_bar=0x7f070011;
-        public static final int selectPath=0x7f070016;
+        public static final int list_play_icon=0x7f070006;
+        public static final int listviewitem=0x7f070004;
+        public static final int pager=0x7f070018;
+        public static final int progress_bar=0x7f070012;
+        public static final int selectPath=0x7f070017;
         public static final int select_list=0x7f07001f;
         public static final int select_lyric=0x7f070020;
-        public static final int show_lyric=0x7f07000b;
-        public static final int text=0x7f070013;
+        public static final int show_lyric=0x7f07000c;
+        public static final int text=0x7f070014;
         public static final int top_menu=0x7f07001c;
     }
     public static final class layout {
@@ -144,9 +144,9 @@ public final class R {
         public static final int verify_del=0x7f05000b;
     }
     public static final class style {
-        public static final int CustomWindowTitleText=0x7f060000;
-        public static final int Default=0x7f060002;
-        public static final int Default_NoTitleBar=0x7f060001;
+        /**  是否有标题 
+         */
+        public static final int perference_set_activity=0x7f060000;
     }
     public static final class xml {
         public static final int app_set_up=0x7f040000;
