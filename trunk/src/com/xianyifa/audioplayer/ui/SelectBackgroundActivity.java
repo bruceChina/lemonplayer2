@@ -72,7 +72,8 @@ public class SelectBackgroundActivity extends MyActivity {
 				HashMap<String, String> cofig = new HashMap<String, String>();
 				cofig.put("bgImg", path);
 				setConfig(cofig);
-				SelectBackgroundActivity.this.finish();
+				MyApplication.getInstance().setReloadBackground(true);
+//				SelectBackgroundActivity.this.finish();
 			}
 
 			
@@ -176,18 +177,12 @@ public class SelectBackgroundActivity extends MyActivity {
             
             convertView = LayoutInflater.from(SelectBackgroundActivity.this.getApplicationContext()).inflate(R.layout.select_bg_item, null);
             ImageView imageView = (ImageView)convertView.findViewById(R.id.bgItemImg);
-//            imageView.setLayoutParams(new GridView.LayoutParams(150, 250));//设置ImageView对象布局 
-//	          imageView.setAdjustViewBounds(false);//设置边界对齐 
-//	          imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);//设置刻度的类型 
-//	          imageView.setPadding(8, 8, 8, 8);//设置间距 
-            
             
             imageView.setImageDrawable((BitmapDrawable)data.get(position).get("bitmap"));
             
             if(data.get(position).get("path").equals(bgPath)){
             	ImageView imageViewCheck = (ImageView)convertView.findViewById(R.id.bgItemCheck);
             	imageViewCheck.setVisibility(View.VISIBLE);//可见
-//            	imageViewCheck.setImageResource(R.drawable.icon_add_checked);
             }
             
             return convertView;
@@ -199,6 +194,7 @@ public class SelectBackgroundActivity extends MyActivity {
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
+		Log.i(TAG, "SelectBackgroundActivity Destroy");
 		MyApplication.getInstance().removeActivity(this);
 		super.onDestroy();
 	}

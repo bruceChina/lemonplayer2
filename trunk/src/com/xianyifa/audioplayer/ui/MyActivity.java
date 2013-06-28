@@ -255,11 +255,6 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 		editor.commit();//一定不要忘记吧内存中的数据提交保存
 	}
 	
-	@Override
-	public void setPlayerService(MyPlayer service) {
-		// TODO Auto-generated method stub
-		this.myPlayerService = service;
-	}
 
 	/**
 	 * 取得播放服务对象
@@ -268,6 +263,11 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 	public MyPlayer getPlayerService() {
 		// TODO Auto-generated method stub
 		return myPlayerService;
+	}
+	
+	@Override
+	public void updateBackground(){
+		
 	}
 	
 }
