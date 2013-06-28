@@ -5,8 +5,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 /*
@@ -15,6 +13,8 @@ import android.util.Log;
 public class MyApplication extends Application {
 	private final String TAG = "MyApplication";
 	private List<Activity> activityList = new LinkedList<Activity>();
+	private Activity topActivity;//当前运行的的activity
+	private boolean isReloadBackground = false;
 	private static MyApplication instance;
 
 	private MyApplication() {
@@ -27,6 +27,18 @@ public class MyApplication extends Application {
 		}
 		return instance;
 
+	}
+
+	public boolean isReloadBackground() {
+		return isReloadBackground;
+	}
+
+	public void setReloadBackground(boolean isReloadBackground) {
+		this.isReloadBackground = isReloadBackground;
+	}
+
+	public Activity getTopActivity() {
+		return topActivity;
 	}
 
 	// 添加Activity到容器中
