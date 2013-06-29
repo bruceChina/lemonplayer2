@@ -125,13 +125,16 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 				/** 扫描并保持歌曲 start */
 				File file = new File(bundle.getString("file"));
 				List<AudioFile> audioFiles = Toolbox.showAudioFile(file);
-				AudioDao ad = new AudioDao(MyActivity.this);
-				for (AudioFile audioFile : audioFiles) {
-					ad.save(audioFile);
+				Log.i(TAG, bundle.getString("file")+"232");
+				if(audioFiles != null){
+					AudioDao ad = new AudioDao(MyActivity.this);
+					for (AudioFile audioFile : audioFiles) {
+						ad.save(audioFile);
+					}
+					ad.closeDB();
+					//刷新列表
+					refresh();
 				}
-				ad.closeDB();
-				//刷新列表
-				refresh();
 //				AudioList al = new AudioList();
 //				al.refresh();
 				/** 扫描并保持歌曲 end */
@@ -165,14 +168,14 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 			float velocityY) {
 		// TODO Auto-generated method stub
-		if (e1.getX()-e2.getX() > 50 && Math.abs(velocityX) > 0) {   
+		if (e1.getX()-e2.getX() > 30 && Math.abs(velocityX) > 0) {   
 			TextView audioLyricText = (TextView)findViewById(R.id.audio_lyric);
 			audioLyricText.performClick();
 //          切换Activity   
 //          Intent intent = new Intent(ViewSnsActivity.this, UpdateStatusActivity.class);   
 //          startActivity(intent);   
 //            Toast.makeText(MyActivity.this, "向左手势", Toast.LENGTH_SHORT).show();   
-        } else if (e2.getX()-e1.getX() > 50 && Math.abs(velocityX) > 0) {   
+        } else if (e2.getX()-e1.getX() > 30 && Math.abs(velocityX) > 0) {   
         	TextView audioListText = (TextView)findViewById(R.id.audiolisttext); 
         	audioListText.performClick();
 //          切换Activity   

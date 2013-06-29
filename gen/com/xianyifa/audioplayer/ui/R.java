@@ -72,17 +72,18 @@ public final class R {
     }
     public static final class id {
         public static final int audioListView=0x7f070000;
-        public static final int audio_lyric=0x7f07001e;
+        public static final int audio_lyric=0x7f07001f;
         public static final int audio_lyric_layout=0x7f07000b;
         public static final int audiolist=0x7f070002;
-        public static final int audiolisttext=0x7f07001d;
+        public static final int audiolisttext=0x7f07001e;
         public static final int audioname=0x7f070007;
         public static final int audiopath=0x7f07000a;
         public static final int audioplaytime=0x7f070008;
         public static final int audiotime=0x7f070009;
         public static final int bgItemCheck=0x7f07001a;
+        public static final int bgItemFlayout=0x7f07001b;
         public static final int bgItemImg=0x7f070019;
-        public static final int bg_img_gridView=0x7f07001b;
+        public static final int bg_img_gridView=0x7f07001c;
         public static final int bot_but=0x7f07000e;
         public static final int bottom_menu=0x7f07000d;
         public static final int bottom_next_song=0x7f070011;
@@ -99,11 +100,11 @@ public final class R {
         public static final int pager=0x7f070018;
         public static final int progress_bar=0x7f070012;
         public static final int selectPath=0x7f070017;
-        public static final int select_list=0x7f07001f;
-        public static final int select_lyric=0x7f070020;
+        public static final int select_list=0x7f070020;
+        public static final int select_lyric=0x7f070021;
         public static final int show_lyric=0x7f07000c;
         public static final int text=0x7f070014;
-        public static final int top_menu=0x7f07001c;
+        public static final int top_menu=0x7f07001d;
     }
     public static final class layout {
         public static final int app_checkbox=0x7f030000;
@@ -115,9 +116,10 @@ public final class R {
         public static final int fileselect=0x7f030006;
         public static final int fragment_pager=0x7f030007;
         public static final int select_bg_item=0x7f030008;
-        public static final int select_bg_view=0x7f030009;
-        public static final int set_up_title_view=0x7f03000a;
-        public static final int top_but_menu=0x7f03000b;
+        public static final int select_bg_item_1=0x7f030009;
+        public static final int select_bg_view=0x7f03000a;
+        public static final int set_up_title_view=0x7f03000b;
+        public static final int top_but_menu=0x7f03000c;
     }
     public static final class string {
         public static final int app_name=0x7f050001;
