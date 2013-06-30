@@ -168,14 +168,14 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 			float velocityY) {
 		// TODO Auto-generated method stub
-		if (e1.getX()-e2.getX() > 30 && Math.abs(velocityX) > 0) {   
+		if (e1.getX()-e2.getX() > 70 && Math.abs(velocityX) > 0) {   
 			TextView audioLyricText = (TextView)findViewById(R.id.audio_lyric);
 			audioLyricText.performClick();
 //          ÇÐ»»Activity   
 //          Intent intent = new Intent(ViewSnsActivity.this, UpdateStatusActivity.class);   
 //          startActivity(intent);   
 //            Toast.makeText(MyActivity.this, "Ïò×óÊÖÊÆ", Toast.LENGTH_SHORT).show();   
-        } else if (e2.getX()-e1.getX() > 30 && Math.abs(velocityX) > 0) {   
+        } else if (e2.getX()-e1.getX() > 70 && Math.abs(velocityX) > 0) {   
         	TextView audioListText = (TextView)findViewById(R.id.audiolisttext); 
         	audioListText.performClick();
 //          ÇÐ»»Activity   
