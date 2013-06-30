@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.Service;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.view.View;
 
 public interface MyPlayer {
 	/**
@@ -59,4 +60,21 @@ public interface MyPlayer {
 	 * @return
 	 */
 	public Service getPlayerService();
+	
+	/**
+	 * 上一曲
+	 */
+	public void preSong();
+	
+	/**
+	 * 暂停或者播放
+	 * @param view 按钮对象
+	 */
+	public void playState(View view);
+	
+	/**
+	 * 下一曲
+	 */
+	public void nextSong();
+	
 }

@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -119,6 +120,48 @@ public class AudioLyric extends MyActivity {
 //			lyricPath = "nolyeic.lrc";
 			lyricPath = null;
 		}
+		
+		/** 为底部按钮增加事件  start */
+		ImageButton preSong = (ImageButton)findViewById(R.id.bottom_pre_song);
+		ImageButton nextSong = (ImageButton)findViewById(R.id.bottom_next_song);
+		ImageButton pauseSong = (ImageButton)findViewById(R.id.bottom_pause_song);
+		
+		pauseSong.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(myPlayerService != null){
+					myPlayerService.playState(v);
+				}else{
+					//播放服务没有启动
+				}
+			}
+		});
+		
+		/** 上一曲 */
+		preSong.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//只有在播放状态上一曲按钮才有效
+				 myPlayerService.preSong();
+			}
+		});
+		
+		/** 下一曲 */
+		nextSong.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//只有在播放状态上一曲按钮才有效
+				myPlayerService.nextSong();
+			}
+		});
+		/** 为底部按钮增加时间   end */
+		
 		
 		Log.i(TAG, "Lyric onCreate");
 	}
@@ -230,6 +273,15 @@ public class AudioLyric extends MyActivity {
 		if(MyApplication.getInstance().isReloadBackground()){
 			updateBackground();
 		}
+		
+			//判断播放状态,设置底部按钮是播放还是暂停状态
+			ImageButton pauseSong = (ImageButton)findViewById(R.id.bottom_pause_song);
+			if(MyApplication.getInstance().isPlayState()){
+				pauseSong.setBackgroundResource(R.drawable.but_icon_pause_song);
+				Log.i(TAG, "onResume：setBackgroundResource");
+			}else{
+				pauseSong.setBackgroundResource(R.drawable.but_icon_play_song);
+			}
 		
 		super.onResume();
 	}

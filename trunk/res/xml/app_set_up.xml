@@ -20,7 +20,7 @@
    </PreferenceCategory>
    
    <PreferenceCategory
-       android:title="主题"
+       android:title="主题 "
        >
        <PreferenceScreen  
             android:summary="换背景"  
