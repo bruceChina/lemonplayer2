@@ -183,6 +183,7 @@ public class AudioList extends MyActivity {
 //									// 判断线程是否活动状态
 									if (!controlPlayTime.isAlive()) {
 										audioLength = mediaPlayer.getDuration();//第一次还是要在这里取一次，防止广播接收到更改为它赋值慢于此线程启动导致audioLength为0
+										controlPlayTime = new ControlPlayTime();//在这里没活动都是因为停止,所以要重新NEW
 										controlPlayTime.start();// 第一次执行播放开始线程
 									}
 //								} catch (IOException e) {

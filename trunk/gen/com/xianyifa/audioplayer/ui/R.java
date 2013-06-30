@@ -21,8 +21,8 @@ public final class R {
         public static final int appwidget_icon_play_prev_normal=0x7f020007;
         public static final int appwidget_icon_play_prev_pressed=0x7f020008;
         public static final int back01=0x7f020009;
-        public static final int black=0x7f020037;
-        public static final int blue=0x7f020039;
+        public static final int black=0x7f020038;
+        public static final int blue=0x7f02003a;
         public static final int bluetooth_search_cancel_default=0x7f02000a;
         public static final int bluetooth_search_cancel_pressed=0x7f02000b;
         public static final int btn_disable=0x7f02000c;
@@ -61,14 +61,15 @@ public final class R {
         public static final int lyric_pics_srch_title_shadow=0x7f02002d;
         public static final int menu_item_pressed=0x7f02002e;
         public static final int operation_button_delete=0x7f02002f;
-        public static final int other=0x7f020038;
+        public static final int other=0x7f020039;
         public static final int scan_empty_icon=0x7f020030;
         public static final int scan_folder_return=0x7f020031;
-        public static final int slide_img_handle=0x7f020032;
-        public static final int social_shared_content_bg=0x7f020033;
-        public static final int toggle_button_off=0x7f020034;
-        public static final int toggle_button_on=0x7f020035;
-        public static final int white=0x7f020036;
+        public static final int skin_ico_checked=0x7f020032;
+        public static final int slide_img_handle=0x7f020033;
+        public static final int social_shared_content_bg=0x7f020034;
+        public static final int toggle_button_off=0x7f020035;
+        public static final int toggle_button_on=0x7f020036;
+        public static final int white=0x7f020037;
     }
     public static final class id {
         public static final int audioListView=0x7f070000;
@@ -146,9 +147,8 @@ public final class R {
         public static final int verify_del=0x7f05000b;
     }
     public static final class style {
-        /**  是否有标题 
-         */
-        public static final int perference_set_activity=0x7f060000;
+        public static final int CustomWindowTitleText=0x7f060000;
+        public static final int perference_set_activity=0x7f060001;
     }
     public static final class xml {
         public static final int app_set_up=0x7f040000;
