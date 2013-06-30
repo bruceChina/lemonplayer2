@@ -14,6 +14,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -159,7 +161,6 @@ public class SelectBackgroundActivity extends MyActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
-			Log.i(TAG, "getView");
 //			ImageView imageView;
 //			if (convertView == null) { 
 //                imageView = new ImageView(context); 
@@ -189,6 +190,24 @@ public class SelectBackgroundActivity extends MyActivity {
             
 		}
 		
+	}
+	
+	/**
+	 * 菜单,背景的activity取消菜单
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		return true;
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		Log.i(TAG, "SelectBackgroundActivity onPause");
+//		this.finish();//直接销毁activity释放内存,此activity比较占内存及时释放
+//		data = null;//释放内存
+		super.onPause();
 	}
 
 	@Override

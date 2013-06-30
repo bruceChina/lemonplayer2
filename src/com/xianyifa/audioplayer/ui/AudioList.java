@@ -160,37 +160,38 @@ public class AudioList extends MyActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(myPlayerService != null){
-					MediaPlayer mediaPlayer = myPlayerService.getMediaPlayer();
-					if(mediaPlayer != null){
-						if(mediaPlayer.isPlaying()){
-							myPlayerService.pause();
-							v.setBackgroundResource(R.drawable.but_icon_play_song);
-						}else{
-							if(filepath != null && !filepath.equals("")){
-								AudioList.this.position = myPlayerService.getPosition();
-							}else{
-								//播放第一条或上次的继续播放
-								HashMap<String, Object> item = (HashMap<String, Object>)listView.getItemAtPosition(0);
-								filepath = item.get("filepath").toString();
-								listId = 0;
-								AudioList.this.position = 0;
-							}
-							Log.i(TAG, filepath+"|"+AudioList.this.position);
-								try {
-									myPlayerService.play(filepath, AudioList.this.position, listId);
-									v.setBackgroundResource(R.drawable.but_icon_pause_song);
-									// 判断线程是否活动状态
+					myPlayerService.playState(v);
+//					MediaPlayer mediaPlayer = myPlayerService.getMediaPlayer();
+//					if(mediaPlayer != null){
+//						if(mediaPlayer.isPlaying()){
+//							myPlayerService.pause();
+//							v.setBackgroundResource(R.drawable.but_icon_play_song);
+//						}else{
+//							if(filepath != null && !filepath.equals("")){
+//								AudioList.this.position = myPlayerService.getPosition();
+//							}else{
+//								//播放第一条或上次的继续播放
+//								HashMap<String, Object> item = (HashMap<String, Object>)listView.getItemAtPosition(0);
+//								filepath = item.get("filepath").toString();
+//								listId = 0;
+//								AudioList.this.position = 0;
+//							}
+//							Log.i(TAG, filepath+"|"+AudioList.this.position);
+//								try {
+//									myPlayerService.play(filepath, AudioList.this.position, listId);
+//									v.setBackgroundResource(R.drawable.but_icon_pause_song);
+//									// 判断线程是否活动状态
 									if (!controlPlayTime.isAlive()) {
 										audioLength = mediaPlayer.getDuration();//第一次还是要在这里取一次，防止广播接收到更改为它赋值慢于此线程启动导致audioLength为0
 										controlPlayTime.start();// 第一次执行播放开始线程
 									}
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							
-						}
-					}
+//								} catch (IOException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//							
+//						}
+//					}
 				}else{
 					//播放服务没有启动
 				}
@@ -204,27 +205,28 @@ public class AudioList extends MyActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//只有在播放状态上一曲按钮才有效
-				MediaPlayer mediaPlayer = myPlayerService.getMediaPlayer();
-				Log.i(TAG, "prev song");
-				if(mediaPlayer.isPlaying()){
-					HashMap<String, Object> item = (HashMap<String, Object>)listView.getItemAtPosition(listId-1);
-					listId = listId-1;
-					if(item == null){
-						item = (HashMap<String, Object>)listView.getItemAtPosition(listView.getCount()-1);
-						listId = listView.getCount()-1;
-					}
-					filepath = item.get("filepath").toString();
-					
-					AudioList.this.position = 0;
-					try {
-						myPlayerService.play(filepath, AudioList.this.position, listId);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					ImageButton pauseSong = (ImageButton)findViewById(R.id.bottom_pause_song);
-					pauseSong.setBackgroundResource(R.drawable.but_icon_pause_song);
-				}
+				 myPlayerService.preSong();
+//				MediaPlayer mediaPlayer = myPlayerService.getMediaPlayer();
+//				Log.i(TAG, "prev song");
+//				if(mediaPlayer.isPlaying()){
+//					HashMap<String, Object> item = (HashMap<String, Object>)listView.getItemAtPosition(listId-1);
+//					listId = listId-1;
+//					if(item == null){
+//						item = (HashMap<String, Object>)listView.getItemAtPosition(listView.getCount()-1);
+//						listId = listView.getCount()-1;
+//					}
+//					filepath = item.get("filepath").toString();
+//					
+//					AudioList.this.position = 0;
+//					try {
+//						myPlayerService.play(filepath, AudioList.this.position, listId);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//					ImageButton pauseSong = (ImageButton)findViewById(R.id.bottom_pause_song);
+//					pauseSong.setBackgroundResource(R.drawable.but_icon_pause_song);
+//				}
 			}
 		});
 		
@@ -235,29 +237,30 @@ public class AudioList extends MyActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//只有在播放状态上一曲按钮才有效
-				MediaPlayer mediaPlayer = myPlayerService.getMediaPlayer();
-				Log.i(TAG, "next song");
-				if(mediaPlayer.isPlaying()){
-					HashMap<String, Object> item;
-					if((listId+1) < listView.getCount()){
-						item = (HashMap<String, Object>)listView.getItemAtPosition(listId+1);
-						listId = listId+1;
-					}else{
-						item = (HashMap<String, Object>)listView.getItemAtPosition(0);
-						listId = 0;
-					}
-					filepath = item.get("filepath").toString();
-					
-					AudioList.this.position = 0;
-					try {
-						myPlayerService.play(filepath, AudioList.this.position, listId);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					ImageButton pauseSong = (ImageButton)findViewById(R.id.bottom_pause_song);
-					pauseSong.setBackgroundResource(R.drawable.but_icon_pause_song);
-				}
+				myPlayerService.nextSong();
+//				MediaPlayer mediaPlayer = myPlayerService.getMediaPlayer();
+//				Log.i(TAG, "next song");
+//				if(mediaPlayer.isPlaying()){
+//					HashMap<String, Object> item;
+//					if((listId+1) < listView.getCount()){
+//						item = (HashMap<String, Object>)listView.getItemAtPosition(listId+1);
+//						listId = listId+1;
+//					}else{
+//						item = (HashMap<String, Object>)listView.getItemAtPosition(0);
+//						listId = 0;
+//					}
+//					filepath = item.get("filepath").toString();
+//					
+//					AudioList.this.position = 0;
+//					try {
+//						myPlayerService.play(filepath, AudioList.this.position, listId);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//					ImageButton pauseSong = (ImageButton)findViewById(R.id.bottom_pause_song);
+//					pauseSong.setBackgroundResource(R.drawable.but_icon_pause_song);
+//				}
 			}
 		});
 		/** 为底部按钮增加时间   end */
@@ -340,7 +343,7 @@ public class AudioList extends MyActivity {
 				laParaContent.width = getprogressBarSize();
 				progressBar.setLayoutParams(laParaContent);
 				
-				adapter.notifyDataSetChanged();
+				adapter.notifyDataSetChanged();  
 				super.handleMessage(msg);
 			}
 		};
@@ -354,6 +357,10 @@ public class AudioList extends MyActivity {
 					int position, long id) {
 				ListView v = (ListView) parent;
 				HashMap<String, Object> item = (HashMap<String, Object>) v.getItemAtPosition(position);
+				
+				//取得底部播放/暂停按钮
+				ImageButton ib = (ImageButton)findViewById(R.id.bottom_pause_song);
+				
 				// 上个播放的文件在ListView的位置
 //				HashMap<String, Object> Befitem = null;
 //				if (listId > -1) {
@@ -369,6 +376,7 @@ public class AudioList extends MyActivity {
 					item = (HashMap<String, Object>) v.getItemAtPosition(position+1);
 					if(item == null){
 						myPlayerService.pause();// 暂停它
+						ib.setBackgroundResource(R.drawable.but_icon_play_song);
 					}else{
 						listId = position + 1;
 						filepath = item.get("filepath").toString();// 取得音乐路径
@@ -383,11 +391,13 @@ public class AudioList extends MyActivity {
 				if (mediaPlayer.isPlaying()) {// 如果正在播放
 					if (playerFileName.equals(filepath)) {// 而且请求的路径和现在播放的路径一样
 						myPlayerService.pause();// 暂停它
+						ib.setBackgroundResource(R.drawable.but_icon_play_song);
 						isStop = true;
 					} else {
 						try {
 							myPlayerService.play(filepath,
 									AudioList.this.position,listId);
+							ib.setBackgroundResource(R.drawable.but_icon_pause_song);
 						} catch (IOException e) {
 							Log.i(TAG, e.toString());
 						}
@@ -395,11 +405,12 @@ public class AudioList extends MyActivity {
 				} else {// 如果不是在播放
 					if (isStop && playerFileName.equals(filepath)) {// 判断是不是停止状态并且请求播放的是同一个文件
 						myPlayerService.pause();//这里的情况基本不会出现,这里应该是播放
+						ib.setBackgroundResource(R.drawable.but_icon_play_song);
 					} else {// 不是暂停状态的调用播放,或者是暂停但是请求的不是同一个音乐文件
 						try {
 							myPlayerService.play(filepath,
 									AudioList.this.position,listId);
-
+							ib.setBackgroundResource(R.drawable.but_icon_pause_song);
 							// 判断线程是否活动状态
 							if (!controlPlayTime.isAlive()) {
 								audioLength = mediaPlayer.getDuration();//第一次还是要在这里取一次，防止广播接收到更改为它赋值慢于此线程启动导致audioLength为0
@@ -530,7 +541,12 @@ public class AudioList extends MyActivity {
 				fileTimeText.setTextColor(Color.parseColor("#3197FF"));
 				
 				//设置播放图标
-				playIcon.setBackgroundResource(R.drawable.list_pause_state);
+				Log.i(TAG, "getView:"+MyApplication.getInstance().isPlayState());
+				if(MyApplication.getInstance().isPlayState()){
+					playIcon.setBackgroundResource(R.drawable.list_play_state);
+				}else{
+					playIcon.setBackgroundResource(R.drawable.list_pause_state);
+				}
 //				LayoutParams playIconParams = (LayoutParams)playIcon.getLayoutParams();
 //				playIconParams.FILL_PARENT = 
 //				playIcon.setLayoutParams(params);
@@ -633,7 +649,20 @@ public class AudioList extends MyActivity {
 			myPlayerService.hideNotification();
 			listId = myPlayerService.getListId();//唤醒的时候也重新在服务取得当前的播放ListView索引，当在服务人为的播放下一首的时候也能更新
 			isPause = false;
+			
+			
+			
 		}
+		
+			//判断播放状态,设置底部按钮是播放还是暂停状态
+			ImageButton pauseSong = (ImageButton)findViewById(R.id.bottom_pause_song);
+			if(MyApplication.getInstance().isPlayState()){
+				pauseSong.setBackgroundResource(R.drawable.but_icon_pause_song);
+				Log.i(TAG, "onResume：pause setBackgroundResource");
+			}else{
+				pauseSong.setBackgroundResource(R.drawable.but_icon_play_song);
+				Log.i(TAG, "onResume：play setBackgroundResource");
+			}
 		
 		
 		//1.1改用在onResume注册绑定播放服务
@@ -653,6 +682,7 @@ public class AudioList extends MyActivity {
 			Log.i(TAG, "onResume updateBackground");
 			updateBackground();
 		}
+		
 		
 		Log.i(TAG, "onResume："+MyApplication.getInstance().isReloadBackground());
 		super.onResume();

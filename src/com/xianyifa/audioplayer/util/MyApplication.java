@@ -16,6 +16,7 @@ public class MyApplication extends Application {
 	private Activity topActivity;//当前运行的的activity
 	private boolean isReloadBackground = false;
 	private static MyApplication instance;
+	private boolean playState = false;//播放的状态
 
 	private MyApplication() {
 	}
@@ -27,6 +28,14 @@ public class MyApplication extends Application {
 		}
 		return instance;
 
+	}
+
+	public boolean isPlayState() {
+		return playState;
+	}
+
+	public void setPlayState(boolean playState) {
+		this.playState = playState;
 	}
 
 	public boolean isReloadBackground() {

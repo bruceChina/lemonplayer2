@@ -23,12 +23,14 @@ import android.os.Message;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 
 import com.xianyifa.audioplayer.impl.MyPlayer;
 import com.xianyifa.audioplayer.lyric.ResolveLRC;
 import com.xianyifa.audioplayer.lyric.Sentence;
 import com.xianyifa.audioplayer.ui.AudioList;
 import com.xianyifa.audioplayer.ui.R;
+import com.xianyifa.audioplayer.util.MyApplication;
 
 public class PlayerService extends Service {
 	private final String TAG = "PlayerService";
@@ -198,17 +200,28 @@ public class PlayerService extends Service {
 	    	
 	    	mediaPlayer.seekTo(position);
 	    	isPlayInit = true;
-	    	if(!PlayerService.this.controlPlay.isAlive() && f.exists()){//只有存在歌词
+	    	
+	    	//启动播放控制线程
+	    	if(!PlayerService.this.controlPlay.isAlive()){
 	    		controlPlay.start();
+	    	}
+	    	
+	    	if(!PlayerService.this.controlLyric.isAlive() && f.exists()){//只有存在歌词
+	    		controlLyric.start();
 	    	}else{
 	    		controlLyricStop = true;//如果不存在歌词就结束线程
 	    	}
+	    	//更改播放状态
+	    	MyApplication.getInstance().setPlayState(true);
+	    	Log.i(TAG, "service play");
 		}
 		
 		@Override
 		public boolean pause(){
 			if(mediaPlayer.isPlaying()){//如果是在播放
 				mediaPlayer.pause();
+				//更改播放状态
+		    	MyApplication.getInstance().setPlayState(false);
 				return true;
 			}else{
 				//应为如果按了停止直接使用start 继续叫报错
@@ -292,8 +305,13 @@ public class PlayerService extends Service {
 	               
 	        // 设置通知的事件消息
 	        contentTitle = getString(R.string.now_playing); // 通知栏标题
-	        contentText = (showLyric != null) 
-	        		? showLyric : getString(R.string.no_music_playing); // 通知栏内容
+	        
+	        if(filepath != null && !filepath.equals("")){
+	        	contentText = (showLyric != null && !showLyric.equals("")) 
+        		? showLyric : new File(filepath).getName(); // 通知栏内容
+	        }else{
+	        	contentText = getString(R.string.no_music_playing);
+	        }
 //	        		CharSequence contentText = "无音乐播放"; // 通知栏内容
 	        Intent notificationIntent = new Intent(PlayerService.this, AudioList.class); // 点击该通知后要跳转的Activity
 	        //添加这里可以解决当按home键停止activity在冲通知进入时出现多个activity对象
@@ -329,6 +347,102 @@ public class PlayerService extends Service {
 		public Service getPlayerService(){
 			return PlayerService.this;
 		}
+
+		/* (non-Javadoc)
+		 * @see com.xianyifa.audioplayer.impl.MyPlayer#preSong()
+		 */
+		@Override
+		public void preSong() {
+			// TODO Auto-generated method stub
+			//只有在播放状态上一曲按钮才有效
+			Log.i(TAG, "prev song");
+			if(mediaPlayer.isPlaying()){
+				if(listId == 0){
+					listId = PlayerService.this.listViewData.size()-1;
+				
+				}else{
+					listId = listId-1;
+				}
+				HashMap<String, Object> item = PlayerService.this.listViewData.get(listId);
+				
+				filepath = item.get("filepath").toString();
+				//不存在继续调用上一曲直到到第一条
+				File f = new File(filepath);
+				if(!f.exists() && listId != 0){
+					preSong();
+				}
+				try {
+					play(filepath, 0, listId);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		/* (non-Javadoc)
+		 * @see com.xianyifa.audioplayer.impl.MyPlayer#playState()
+		 */
+		@Override
+		public void playState(View v) {
+			// TODO Auto-generated method stub
+			if(mediaPlayer != null){
+				if(mediaPlayer.isPlaying()){
+					pause();
+					v.setBackgroundResource(R.drawable.but_icon_play_song);
+				}else{
+					if(filepath != null && !filepath.equals("")){
+						position = mediaPlayer.getCurrentPosition();
+					}else{
+						//播放第一条或上次的继续播放
+						HashMap<String, Object> item = PlayerService.this.listViewData.get(0);
+						filepath = item.get("filepath").toString();
+						listId = 0;
+						position = 0;
+					}
+					Log.i(TAG, filepath+"|"+position);
+						try {
+							play(filepath, position, listId);
+							v.setBackgroundResource(R.drawable.but_icon_pause_song);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
+				}
+			}
+		}
+
+		/* (non-Javadoc)
+		 * @see com.xianyifa.audioplayer.impl.MyPlayer#nextSong()
+		 */
+		@Override
+		public void nextSong() {
+			// TODO Auto-generated method stub
+			Log.i(TAG, "next song");
+			if(mediaPlayer.isPlaying()){
+				HashMap<String, Object> item;
+				if((listId+1) < PlayerService.this.listViewData.size()){
+					listId = listId+1;
+				}else{
+					listId = 0;
+				}
+				item = PlayerService.this.listViewData.get(listId);
+				filepath = item.get("filepath").toString();
+				//不存在继续调用下一曲直到到最后一条
+				File f = new File(filepath);
+				if(!f.exists() && listId != PlayerService.this.listViewData.size()-1){
+					nextSong();
+				}
+				try {
+					play(filepath, 0, listId);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		
 	}
 	
@@ -339,10 +453,15 @@ public class PlayerService extends Service {
 
 		@Override
 		public void onCallStateChanged(int state, String incomingNumber) {
+			boolean phoneStop = false;
 			try {
 				switch (state) {
 				case TelephonyManager.CALL_STATE_IDLE:// 挂断
-					PlayerService.this.mediaPlayer.start();
+					if(phoneStop){
+						mediaPlayer.start();
+//						mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+					}
+//					PlayerService.this.mediaPlayer.start();
 					break;
 				case TelephonyManager.CALL_STATE_OFFHOOK:// 接通电话
 					
@@ -351,6 +470,7 @@ public class PlayerService extends Service {
 				case TelephonyManager.CALL_STATE_RINGING:// 电话进入
 					if(PlayerService.this.mediaPlayer.isPlaying()){//如果是在播放
 						PlayerService.this.mediaPlayer.pause();//暂停
+						phoneStop = true;
 					}
 					break;
 				default:
@@ -372,6 +492,7 @@ public class PlayerService extends Service {
 
 		@Override
 		public void run() {
+				Log.i(TAG, "ControlPlay start");
 				while (!controlPlayStop) {
 					try {
 						Thread.sleep(800);
