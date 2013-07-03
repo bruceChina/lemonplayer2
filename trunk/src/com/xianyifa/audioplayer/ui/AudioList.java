@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.R.bool;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -42,6 +43,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -81,12 +83,13 @@ public class AudioList extends MyActivity {
 	private int widthPixels;//设备屏幕宽度像素
 	private BroadcastReceiver receiver;//广播监听
 //	private final int ADDAUDIOPLAYER_ID = Menu.FIRST;
-//	private final int DELAUDIOPLAYER_ID = Menu.FIRST + 1;
+	private final int DELAUDIOPLAYER_ID = Menu.FIRST + 1;
 	private final int EXITAUDIOPLAYER_ID = Menu.FIRST + 2;
 	private final int DELETE_DIALOG = 1;
 	private final int PAGE_SIZE = 100;//默认开始读取多少行
 	private ImageView progressBar;//音乐播放进度条控件 
 	private HashMap<String, String> config;//程序配置参数
+	private boolean isDelState = false;//是否在删除状态
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -528,6 +531,7 @@ public class AudioList extends MyActivity {
 			TextView playTimeText = (TextView)convertView.findViewById(R.id.audioplaytime);
 			TextView fileTimeText = (TextView)convertView.findViewById(R.id.audiotime);
 			TextView playIcon = (TextView)convertView.findViewById(R.id.list_play_icon);
+			CheckBox listViewItemCheckBox = (CheckBox)convertView.findViewById(R.id.listViewItemCheckBox);
 //			TextView progressBarText = (TextView)convertView.findViewById(R.id.progress_bar);
 			
 			//比重新给值将显示空白?位置原因:getView就是把每天数据绑定到界面的过程，所以在这里要赋值
@@ -535,6 +539,12 @@ public class AudioList extends MyActivity {
 			filePathText.setText(((HashMap<String, Object>)listView.getItemAtPosition(position)).get("filepath").toString());
 			playTimeText.setText(((HashMap<String, Object>)listView.getItemAtPosition(position)).get("playTime").toString());
 			fileTimeText.setText(((HashMap<String, Object>)listView.getItemAtPosition(position)).get("audioTime").toString());
+			
+			//如果是删除状态显示勾选框
+			
+			if(isDelState){
+				listViewItemCheckBox.setVisibility(View.VISIBLE);
+			}
 			if(listId == position){
 				//他要求传int  但不能传颜色的十进制代码
 				fileNameText.setTextColor(Color.parseColor("#3197FF"));
@@ -548,6 +558,9 @@ public class AudioList extends MyActivity {
 				}else{
 					playIcon.setBackgroundResource(R.drawable.list_pause_state);
 				}
+				
+				
+//				Log.i(TAG, "ControlPlayTime stop"+isDelState);
 //				LayoutParams playIconParams = (LayoutParams)playIcon.getLayoutParams();
 //				playIconParams.FILL_PARENT = 
 //				playIcon.setLayoutParams(params);
@@ -711,12 +724,17 @@ public class AudioList extends MyActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
 		switch (item.getItemId()) {
-		case EXITAUDIOPLAYER_ID:
+//		case EXITAUDIOPLAYER_ID:
 			// 退出播放器
 //			MyApplication.getInstance().exit(); //把管理器中的所有activity的退出 finish
 //			this.stopService(service);
 //			Log.i(TAG, "bye bye!");
 //			return true;
+		case DELAUDIOPLAYER_ID:
+			isDelState = true;
+//			refresh();
+			adapter.notifyDataSetChanged();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
