@@ -57,7 +57,7 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 		super.onCreateOptionsMenu(menu);
 		// ÍË³ö³ÌÐò
 		menu.add(0, ADDAUDIOPLAYER_ID, 0, "Ìí¼Ó¸èÇú").setShortcut('2', 'b').setIcon(R.drawable.ic_menu_scan);
-		menu.add(0, DELAUDIOPLAYER_ID, 0, "É¾³ý¸èÇú").setShortcut('2', 'b').setIcon(R.drawable.operation_button_delete);
+		menu.add(0, DELAUDIOPLAYER_ID, 0, "É¾³ý¸èÇú").setShortcut('2', 'b').setIcon(R.drawable.recording_delete_indicator);
 		menu.add(0, SET_UP_ID, 0, "ÉèÖÃ").setShortcut('2', 'b').setIcon(R.drawable.ic_menu_setting);
 		// .setIcon(R.drawable.exit);
 		// ÍË³ö³ÌÐò
@@ -102,7 +102,7 @@ public class MyActivity extends Activity implements OnTouchListener,OnGestureLis
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			
 			startActivity(intent);
-			
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
